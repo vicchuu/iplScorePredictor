@@ -90,18 +90,17 @@ print(com_org_data_after_bhk.location.unique())
 
 location_used = com_org_data_after_bhk.groupby('location')["location"].agg('count').sort_values(ascending = False)
 
-print((location_used[location_used<10 ]))
+less_used_location = location_used[location_used<10 ]
+print("info :",less_used_location)
+print("Descibe :",com_org_data_after_bhk.describe())
 #category all small values in to single column -->other
 print((com_org_data_after_bhk["squarefeet"]<500))
 
-com_org_data_after_lessSpace = com_org_data_after_bhk[ ~(com_org_data_after_bhk.squarefeet<400)]
+com_org_data_after_bhk = com_org_data_after_bhk.location.apply( lambda x:"other" if x in less_used_location else x)
 
-print(com_org_data_after_lessSpace.shape)
+com_org_data = com_org_data_after_bhk[ ~(com_org_data_after_bhk['squarefeet']<400)]
 
 
-print(com_org_data_after_lessSpace.info())
-print(com_org_data_after_lessSpace.describe())
-print(com_org_data_after_lessSpace.loc[111,:])
 
 #for k,v in com_org_data_after_bhk.groupby('location'):
 #    print(v)
@@ -110,13 +109,18 @@ print(com_org_data_after_lessSpace.loc[111,:])
 # Removing outliers in same area , if rajaji nagar 1 value is 100 , then other is 1200 please remove both of not match b/w std
 
 def removeOutliers(df):
-    df_put = ps.DataFrame()
+    df_out = ps.DataFrame()
 
     for key , value in df.groupby('location'):
-        mean =  np.mean(value["squarefeet"])
-        std = np.std(value["squarefeet"])
-        reduced_df = sub
+        mean =  np.mean(value["rate_per_sq_ft"])
+        std = np.std(value["rate_per_sq_ft"])
+        reduced_df = value[(value.rate_per_sq_ft >(mean-std) ) &  (value.rate_per_sq_ft >(mean+std))]
+        df_out= ps.concat((df_out,reduced_df),ignore_index=True)
 
+    return df_out
 
+new_Dataset = removeOutliers(com_org_data )
+
+print(new_Dataset.shape)
 
 
