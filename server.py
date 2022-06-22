@@ -1,27 +1,30 @@
-from flask import Flask ,render_template
-
-app = Flask(__name__)
-
+from flask import Flask , url_for,redirect ,render_template
+app= Flask(__name__)
 
 @app.route("/")
-def hello():
-    my_html = '''
+def home():
+    return "home method calls"
 
-     <body style="background-color: #e1eb34;">
+@app.route('/fail/<int:score>')
+def fail(score):
+    return "I'm failed with this mark  :"+str(score)
+
+@app.route('/succcess/<int:score>')
+def succcess(score):
+    #print("method in success ....!")
+    return "I'm passed with the mark i got is   :"+str(score)
+
+@app.route('/checkResult/<int:marks>')
+def checkResult(marks):
+    #print("scheck result :",marks)
+    result = ""
+    if marks>50:
+         result="succcess"
+    else:
+         result="fail"
+    return redirect(url_for(result,score =marks))
 
 
-         <h1 style="color:(0,255,0);">Hello World</h1>
 
-     </body>
-
-     '''
-    return my_html
-
-@app.route("/meera")
-def about():
-    return render_template("about.html")
-
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ =="__main__":
+    app.run(debug = True)
