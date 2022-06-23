@@ -1,9 +1,16 @@
-from flask import Flask , url_for,redirect ,render_template
+from flask import Flask , url_for,redirect ,render_template,request
 app= Flask(__name__)
+
+"""
+JINJA technique {%.....%} for statements
+{{ }}expression to print
+{# ...} internel comments
+"""
+
 
 @app.route("/")
 def home():
-    return "home method calls"
+    return render_template("index.html")
 
 @app.route('/fail/<int:score>')
 def fail(score):
@@ -23,6 +30,26 @@ def checkResult(marks):
     else:
          result="fail"
     return redirect(url_for(result,score =marks))
+
+@app.route("/submit",methods=["POST","GET"])
+def submit():
+    answer=1
+    print(request.method)
+    if request.method =="POST":
+        science = float(request.form["science"])
+        social = float(request.form["social"])
+        maths = float(request.form["maths"])
+        philosophy = float(request.form["philosophy"])
+
+        answer =  (science+social+maths+philosophy)/4
+        result= ""
+        if answer>50:
+            result = "succcess"
+        else:
+            result = "fail"
+        dic ={"result":result,"marks":answer}
+    return render_template("resultPub.html", score=dic)
+
 
 
 
