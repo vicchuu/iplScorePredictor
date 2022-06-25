@@ -29,7 +29,38 @@ print(s)
 
 #print(sml)
 
-ce = "vishnu is gooooog boy in nature"
-from collections import Counter
-print((Counter(ce)))
-#print(key1)
+# ce = "vishnu is gooooog boy in nature"
+# from collections import Counter
+# print((Counter(ce)))
+# #print(key1)
+
+
+#
+#import pyqrcode
+# from pyqrcode import QRCode
+#
+# s = "vishnu is good boy "
+#
+# code = pyqrcode.create(s)
+#
+# code.svg("mypng.svg",scale =1)'
+
+
+import random
+
+n = random.randint(1,100)
+
+
+guess = int(input("please enter a possible numer fomr 1 to 100"))
+
+while guess != n:
+
+	if guess < n:
+		print("your entered value is too low")
+		guess =  int (input ("please renter your value again.."))
+	elif guess > n:
+		print("Value you entered is too high , please enter below number")
+		guess = int(input("please renter your value again.."))
+	elif guess ==n:
+		break
+print("congrats you have entered a perfect value..")

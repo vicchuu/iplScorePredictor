@@ -1,0 +1,9 @@
+
+import pyqrcode
+from pyqrcode import QRCode
+
+s = "vishnu is good boy "
+
+code = pyqrcode.create(s)
+
+code.svg("mypng.svg",scale =8)
