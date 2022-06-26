@@ -1,22 +1,7 @@
-a = [[1,2,3], [3,4,5],[5,6,7]]
-d=[]
-
-[d.append(j) for i in a  for j in i if j not in d ]
-print(d)
-
-dic =  {
-	'cappuccino': 54,
-	'latte': 56,
-	'espresso': 72,
-	'americano': 48,
-	'cortado': 41
-}
 
 
-print(sorted(dic.items() , key =  lambda x :x[0] , reverse=False ))
 
-s = dict((x,"Even") if x%2 ==0 else (x,"Odd") for x in range(18))
-print(s)
+
 
 # dict1={"one":1,"two":2,"three":3}
 # duplicate=[]
@@ -48,19 +33,31 @@ print(s)
 
 import random
 
-n = random.randint(1,100)
+# n = random.randint(1,100)
+#
+#
+# guess = int(input("please enter a possible numer fomr 1 to 100"))
+#
+# while guess != n:
+#
+# 	if guess < n:
+# 		print("your entered value is too low")
+# 		guess =  int (input ("please renter your value again.."))
+# 	elif guess > n:
+# 		print("Value you entered is too high , please enter below number")
+# 		guess = int(input("please renter your value again.."))
+# 	elif guess ==n:
+# 		break
+# print("congrats you have entered a perfect value..")\
+#1. Find all of the numbers from 1–1000 that are divisible by 8
 
+# a= [ i for i in range(1,1000) if i%8==0]
+#
+# print(a)
 
-guess = int(input("please enter a possible numer fomr 1 to 100"))
+#7. Use a nested list comprehension to find all of the numbers from 1–1000
+# that are divisible by any single digit besides 1 (2–9)
 
-while guess != n:
+dic = [ f for f in range(2,100) if  True in [True for divisor in range(2,10) if f%divisor==0] ]
 
-	if guess < n:
-		print("your entered value is too low")
-		guess =  int (input ("please renter your value again.."))
-	elif guess > n:
-		print("Value you entered is too high , please enter below number")
-		guess = int(input("please renter your value again.."))
-	elif guess ==n:
-		break
-print("congrats you have entered a perfect value..")
+print(len(dic))
