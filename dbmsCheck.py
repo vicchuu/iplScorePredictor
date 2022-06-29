@@ -41,15 +41,95 @@
 #
 
 """My SQL will start from here"""
-from flask import Flask, render_template, request
-from flask_mysqldb import MySQL
 
-app = Flask(__name__)
+# import mysql.connector #conda install mysql-python
+# import json
+# from flask_mysql import MySQL
+#
+# from flask import Flask,render_template, request
+# from flask_mysqldb import MySQL
+#
+# app = Flask(__name__)
+#
+# app.config['MYSQL_HOST'] = 'localhost'
+# app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = ''
+# app.config['MYSQL_DB'] = 'flask'
+#
+# mysql = MySQL(app)
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'flask'
+import mysql.connector
+try:
+  db_connection = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="rootvishnu",
+  database ="testdb"
+  )
+except:
+  print("issue in connectivity")
 
-mysql = MySQL(app)
+my_cursor = db_connection.cursor()
+my_cursor.execute("DELETE FROM student")
+#CREATE DATABASE NAME
+#my_cursor.execute("REMOVE DATABASE testdb")
+
+#printing availabel data bases
+#my_cursor.execute("show databases")
+#print(db_connection.cursor().execute("show databases"))
+# my_cursor.execute("SHOW TABLES")
+
+
+# def reverse(nums):
+#     return [nums[-1]]+reverse(nums[:-1]) if nums else []
+#
+# #backwards = lambda l: (backwards (l[1:]) + l[:1] if l else [])
+#
+# backwards =  lambda  nums : (backwards( nums[1:]) + nums[:1] if nums else [])
+#
+#
+# a = [9,23,4,2,11,5,25,6]
+# [ print(a[i],end= " ") for i  in range(len(a)-1,-1,-1)]
+#
+# print(backwards(a))
+#print(c)
+
+
+#creating a table
+
+#my_cursor.execute("CREATE TABLE student (name VARCHAR(255),age INTEGER(10), marks INTEGER(10))")
+
+
+
+insert_values = "INSERT INTO student (name ,age,marks,gender) VALUES (%s,%s,%s,%s)"
+
+student1 = [("Vishnu" , 29,93 ,"Male"),
+            ("alpha1" , 19,93,"M"),
+            ("beta2" , 39,93,"M"),
+            ("game3" , 49,93,"M"),
+            ("Radii4" , 59,93,"F")]
+#
+my_cursor.executemany(insert_values,student1)
+
+#
+
+#my_cursor.execute("SELECT * FROM student  WHERE name LIKE '%s%'")
+#my_cursor.execute("SELECT * FROM student ORDER BY name ASC")
+
+# updating existing value in SQl
+
+#my_cursor.execute("UPDATE student SET age = 0000000009 WHERE name ='vishnu' ")
+my_cursor.execute("SELECT * FROM student ")
+
+#my_cursor.execute("ALTER TABLE student ADD gender VARCHAR(6) NOT NULL")
+#my_cursor.execute("ALTER TABLE student RENAME TO students")
+my_cursor.execute("ALTER TABLE student MODIFY gender VARCHAR(5)")
+#my_cursor.execute("DESCRIBE student")
+
+result = my_cursor.fetchall()
+for i in result:
+   print(i)
+#
+db_connection.commit()
+
 
