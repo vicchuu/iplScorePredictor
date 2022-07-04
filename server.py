@@ -30,8 +30,38 @@ def index():
             return 'There was an issue adding your task'
 
     else:
-        tasks = finalDB.query.order_by(finalDB.timethis).first()
+        tasks = finalDB.query.order_by(finalDB.timethis).all()
         return render_template('index.html', tasks=tasks)
+
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    curr_id =  finalDB.query.get_or_404(id)
+
+    try:
+        db.session.delete(curr_id)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return "Issue in deleteing id"
+
+
+@app.route('/update/<int:id>',methods=['GET','POST'])
+def update(id):
+    task = finalDB.query.get_or_404(id)
+
+    if request.method=='POST':
+        task.content = request.form['content']
+
+        try :
+            db.session.commit()
+
+            return redirect('/')
+        except:
+            return "please check the updated content ,issue is noted"
+    else:
+        return render_template('update.html',task=task)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -15,6 +15,7 @@ header {
   width: 100%;
   opacity: .9;
   margin-bottom: 10px;
+  center:True;
 }
 header h1.logo {
   margin: 0;
@@ -62,17 +63,28 @@ h3 {
   letter-spacing: -1px;
   color: #999;
 }
-.menu {
-  float: right;
-  margin-top: 8px;
+table, td, th {
+    border: 1px solid #aaa;
 }
-.menu li {
-  display: inline;
+
+table {
+    border-collapse: collapse;
+    width: 100%;
 }
-.menu li + li {
-  margin-left: 35px;
+
+th {
+    height: 30px;
 }
-.menu li a {
-  color: #444;
-  text-decoration: none;
+
+td {
+    text-align: center;
+    padding: 5px;
+}
+
+.form {
+    margin-top: 2px;
+}
+
+#content {
+    width: 70%;
 }

@@ -132,14 +132,27 @@
 #
 #
 
-a= [,2,3,4,1,2,3,4]
-x=0
-for s in a:
-    x=x^s
-    #print(x)
-print(x)
+# maxinta= [9,2,3,4,1,2,3,4]
+# x=0
+# for s in a:
+#     x=x^s
+#     #print(x)
+# print(x)
+#
+# import numpy as np
+# frid =  np.arange(1,10,0.5).reshape((2,9))
+#
+# print(frid)
 
-import numpy as np
-frid =  np.arange(1,10,0.5).reshape((2,9))
+s =  "absvnns22wv111sdfsj333"
 
-print(frid)
+d = "".join([ "@" if i =="2"
+      else "$" if i=="1"
+      else "#" if i=="3"
+      else i
+
+
+    for i in s
+])
+
+print(d)
